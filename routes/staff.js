@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getall,
+  staff,
   insert,
-  update,
+  show,
   remove,
-  getone,
-} = require("../controllers/companyController");
+  update,
+} = require("../controllers/staffController");
 
-router.get("/", getall);
-router.get("/:id", getone);
+router.get("/", staff);
+router.get("/:id", show);
 router.put("/:id", update);
 router.delete("/:id", remove);
 router.post("/", insert);
