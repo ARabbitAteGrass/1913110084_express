@@ -17,9 +17,16 @@ const index = async (req, res, next) => {
 };
 
 const getMenu = async (req, res, next) => {
-  const menus = await menu.find().sort({_id:-1});
+  const menus = await menu.find().populate("shop");
   
   return res.status(200).json({ data: menus });
 } 
 
-module.exports = { index: index ,getMenu};
+const getShopMenu = async (req, res, next) => {
+  const{ id} = req.params;
+  const shops = await shop.findOne({ _id: id }).populate("menus");
+  return res.status(200).json({ data: shops });
+
+}
+
+module.exports = { index: index ,getMenu, getShopMenu};
