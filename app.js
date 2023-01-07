@@ -4,11 +4,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 mongoose.pluralize(null);
-mongoose.connect('mongodb+srv://sanmook:GBrGewHdTJFyUR7w@1913110084-sanmook.dmyemwa.mongodb.net/restfulapi', {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-  // useFindAndModify: false,
-});
+const config = require('./config/index');
+mongoose.connect(config.MONGODB_URI,{useNewUrlParser: true, useUnifiedTopology: true})
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
