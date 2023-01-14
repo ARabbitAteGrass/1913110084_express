@@ -28,7 +28,9 @@ const show = async (req, res, next) => {
     }
     return res.status(200).json({ data: staffResult });
   } catch (e) {
-    return res.status(404).end('Error: ${e.message}');
+        const error =  new Error(`Error: ${e.message}`)
+        error.statusCode = 404
+        next(error);
   }
 };
 
@@ -41,7 +43,9 @@ const remove = async (req, res, next) => {
     }
     return res.status(200).json({ data: staffResult });
   } catch (e) {
-    return res.status(404).end('Error: ${e.message}');
+        const error =  new Error(`Error: ${e.message}`)
+        error.statusCode = 404
+        next(error);
   }
 };
 
@@ -58,7 +62,9 @@ const update = async (req, res, next) => {
     }
     return res.status(200).json({ message: "Update Successful" });
   } catch (e) {
-    return res.status(404).end('Error: ${e.message}');
+        const error =  new Error(`Error: ${e.message}`)
+        error.statusCode = 404
+        next(error);
   }
 };
 

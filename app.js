@@ -13,6 +13,8 @@ const companiesRouter = require("./routes/company");
 const staffRouter = require("./routes/staff");
 const shopRouter = require("./routes/shop");
 
+const errorHandler = require("./middleware/errorHandler") 
+
 const app = express();
 
 app.use(logger("dev"));
@@ -29,4 +31,5 @@ app.use("/company", companiesRouter);
 app.use("/staff", staffRouter);
 app.use("/shop", shopRouter);
 
+app.use(errorHandler)
 module.exports = app;
