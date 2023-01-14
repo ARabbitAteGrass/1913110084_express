@@ -37,7 +37,9 @@ const update = async (req, res, next) => {
       { name: name, address: address }
     );
     if (!result.modifiedCount) {
-      throw new Error("No company was modified");
+        const error =  new Error("No company was modified")
+        error.statusCode = 405
+        next(error);
     }
     return res.status(200).json({ message: "Update Successful" });
   } catch (e) {
@@ -53,7 +55,9 @@ const remove = async (req, res, next) => {
     console.log(id);
     const result = await companies.deleteOne({ _id: new ObjectId(id) });
     if (!result.deletedCount) {
-      throw new Error("No company was deleted");
+        const error =  new Error("No company was deleted")
+        error.statusCode = 405
+        next(error);
     }
     return res.status(200).json({ data: result });
   } catch (e) {

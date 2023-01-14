@@ -24,7 +24,9 @@ const show = async (req, res, next) => {
     const id = req.params.id;
     const staffResult = await staff.findOne({ _id: new ObjectId(id) });
     if (!staffResult) {
-      throw new Error("No Staff found");
+        const error =  new Error("No Staff delete")
+        error.statusCode = 405
+        next(error);
     }
     return res.status(200).json({ data: staffResult });
   } catch (e) {
@@ -39,7 +41,9 @@ const remove = async (req, res, next) => {
     const id = req.params.id;
     const staffResult = await staff.deleteOne({ _id: new ObjectId(id) });
     if (!staffResult.deletedCount) {
-      throw new Error("No Staff delete");
+        const error =  new Error("No Staff delete")
+        error.statusCode = 405
+        next(error);
     }
     return res.status(200).json({ data: staffResult });
   } catch (e) {
@@ -58,7 +62,9 @@ const update = async (req, res, next) => {
       { name: name, salary: salary }
     );
     if (!staffupdate.modifiedCount) {
-      throw new Error("No Staff was modified");
+        const error =  new Error("No Staff was modified")
+        error.statusCode = 405
+        next(error);
     }
     return res.status(200).json({ message: "Update Successful" });
   } catch (e) {
