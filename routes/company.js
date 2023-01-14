@@ -5,7 +5,7 @@ const {
   insert,
   update,
   remove,
-  getone,
+   getone,
 } = require("../controllers/companyController");
 
 router.get("/", getall);

@@ -93,6 +93,6 @@ function decodeBase64Image(base64Str) {
 module.exports = {
   index: index,
   menu: getMenu,
-  shop: getShop,
+  shop: getShopMenu,
   insert: addShop,
 };
