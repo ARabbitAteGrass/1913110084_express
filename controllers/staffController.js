@@ -1,5 +1,6 @@
 const { ObjectId } = require("bson");
 const { staff } = require("../models/staff");
+const { validationResult } = require("express-validator");
 
 const get = async (req, res, next) => {
   const staffResult = await staff.find().sort({ _id: "desc" });
@@ -7,16 +8,30 @@ const get = async (req, res, next) => {
 };
 
 const post = async (req, res, next) => {
-  const { name, salary, photo } = req.body;
-  let staffinsert = staff({
-    name: name,
-    salary: salary,
-    photo: await saveImageToDisk(photo),
-  });
-  const result = await staffinsert.save();
-  return res
-    .status(200)
-    .json({ message: 'Insert Successful: $(result != null)' });
+  try{
+    const { name, salary, photo } = req.body;
+
+    // validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error("ข้อมูลที่ได้รับมาไม่ถูกต้อง");
+      error.statusCode = 422;
+      error.validation = errors.array();
+      throw error;
+    }
+
+    let staffinsert = staff({
+      name: name,
+      salary: salary,
+      photo: await saveImageToDisk(photo),
+    });
+    const result = await staffinsert.save();
+    return res
+      .status(200)
+      .json({ message: 'Insert Successful: $(result != null)' });
+  }catch (error) {
+    next(error);
+  }
 };
 
 const show = async (req, res, next) => {
@@ -57,6 +72,16 @@ const update = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { name, salary } = req.body;
+
+     // validation
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       const error = new Error("ข้อมูลที่ได้รับมาไม่ถูกต้อง");
+       error.statusCode = 422;
+       error.validation = errors.array();
+       throw error;
+     }
+
     const staffupdate = await staff.updateOne(
       { _id: new ObjectId(id) },
       { name: name, salary: salary }
