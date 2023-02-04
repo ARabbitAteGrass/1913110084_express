@@ -86,8 +86,7 @@ exports.login = async (req, res, next) => {
     // token
     const token = await jwt.sign(
       {
-        id: user._id,
-        role: user.role,
+        id: user._id
       },
       config.JWT_SECRET,
       {
@@ -107,3 +106,11 @@ exports.login = async (req, res, next) => {
   }
 };
 
+const profile = async (req, res, next) => {
+  const { role, name, email } = req.user;
+  return res
+    .status(200)
+    .json({ data: { name: name, email: email, role: role } });
+};
+
+module.exports = { index, bio, register, login, profile };

@@ -10,5 +10,5 @@ module.exports.isAdmin = (req,res,next) =>{
             }
         })
     }
-
-}
+};
+module.exports = { isAdmin };
