@@ -7,8 +7,10 @@ const {
   remove,
    getone,
 } = require("../controllers/companyController");
+const passportJWT = require('../middleware/passportJWT')
 
-router.get("/", getall);
+
+router.get("/",[passportJWT.isLogin], getall);
 router.get("/:id", getone);
 router.put("/:id", update);
 router.delete("/:id", remove);

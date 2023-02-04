@@ -8,8 +8,9 @@ const {
   update,
 } = require("../controllers/staffController");
 const { body } = require("express-validator");
+const passportJWT = require('../middleware/passportJWT')
 
-router.get("/", staff);
+router.get("/",[passportJWT.isLogin], staff);
 router.get("/:id", show);
 router.put("/:id", update);
 router.delete("/:id", remove);

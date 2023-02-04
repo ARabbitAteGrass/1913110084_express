@@ -1,5 +1,5 @@
 const { ObjectId } = require("bson");
-const { staff } = require("../models/staff");
+const staff = require("../models/staff");
 const { validationResult } = require("express-validator");
 
 const get = async (req, res, next) => {
