@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/userController')
 const { body } = require("express-validator");
-const passportJWT = require('../middleware/passportJWT');
-const { isLogin } = require("../middleware/passwordJWT");
+// const passportJWT = require('../middleware/passportJWT');
+const { isLogin } = require("../middleware/passportJWT");
 
 /* GET users listing. */
 router.get('/', userController.index);
@@ -49,6 +49,6 @@ router.post(
     userController.login
   );
 
-router.get("/me", [isLogin], profile);
+router.get("/me", [isLogin], userController.profile);
 
 module.exports = router;

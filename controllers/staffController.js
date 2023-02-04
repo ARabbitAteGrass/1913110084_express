@@ -19,16 +19,17 @@ const post = async (req, res, next) => {
       error.validation = errors.array();
       throw error;
     }
+    const photoName = photo ? await saveImageToDisk(photo) : undefined;
 
     let staffinsert = staff({
       name: name,
       salary: salary,
-      photo: await saveImageToDisk(photo),
+      photo: photoName,
     });
     const result = await staffinsert.save();
     return res
       .status(200)
-      .json({ message: 'Insert Successful: $(result != null)' });
+      .json({ message: `Insert Successful: ${result != null}` });
   }catch (error) {
     next(error);
   }

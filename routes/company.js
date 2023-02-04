@@ -8,7 +8,7 @@ const {
    getone,
 } = require("../controllers/companyController");
 const { isAdmin } = require("../middleware/checkAdmin");
-const { isLogin } = require("../middleware/passwordJWT");
+const { isLogin } = require("../middleware/passportJWT");
 
 
 router.get("/",[isLogin, isAdmin], getall);
